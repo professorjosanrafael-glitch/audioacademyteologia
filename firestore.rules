@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // VARIÁVEIS DE AUTENTICAÇÃO
+    // Permite acesso se o usuário estiver autenticado (mesmo anonimamente, se necessário)
+    function isAuthenticated() {
+      return request.auth != null; 
+    }
+    
+    // -----------------------------------------------------
+    // 1. COLEÇÕES PÚBLICAS (Audiobooks e Episódios)
+    // Caminho: artifacts/{appId}/public/data/{collection}
+    // Permite leitura por qualquer pessoa. Escrita negada.
+    // -----------------------------------------------------
+
+    // Isto cobre 'audiobooks' e 'episodes'
+    match /artifacts/{appId}/public/data/{collectionId} { 
+      match /{documentId} {
+        // Qualquer pessoa pode ler o catálogo.
+        allow read: if true; 
+        // A escrita é negada para o front-end. Apenas seu CMS pode escrever.
+        allow write: if false; 
+      }
+    }
+    
+    // -----------------------------------------------------
+    // 2. COLEÇÃO PRIVADA (Perfis de Usuário: full_name, subscription_tier)
+    // Caminho: artifacts/{appId}/users/{userId}/profiles/{profileId}
+    // Acesso total (leitura/escrita) apenas ao dono do perfil.
+    // -----------------------------------------------------
+    
+    match /artifacts/{appId}/users/{userId}/profiles/{profileId} {
+        
+      // CRÍTICO: Permite ler e escrever apenas se o UID logado for igual ao {userId} no caminho
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+  }
+}
