@@ -135,7 +135,7 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
-            <Card className="w-full max-w-md bg-slate-800/80 border-slate-700 backdrop-blur-sm shadow-2xl shadow-violet-500/10">
+            <Card className="w-full max-w-md bg-slate-800/80 border-slate-700 backdrop-blur-sm shadow-2xl shadow-blue-500/10"> {/* ALTERADO: shadow-violet-500/10 para shadow-blue-500/10 */}
                 <CardHeader className="text-center">
                     <CardTitle className="text-3xl font-bold text-white mb-2">
                         {isLoginView ? "Entrar na Conta" : "Criar Nova Conta"}
@@ -210,7 +210,7 @@ export default function Login() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
+                            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
                         >
                             {isLoginView ? (
                                 <>
@@ -234,7 +234,7 @@ export default function Login() {
                                 <button 
                                     type="button" 
                                     onClick={() => { setIsLoginView(false); setEmail(""); setPassword(""); setFullName(""); }}
-                                    className="text-violet-400 hover:text-violet-300 font-medium"
+                                    className="text-cyan-400 hover:text-cyan-300 font-medium"
                                 >
                                     Crie uma agora
                                 </button>
@@ -245,7 +245,7 @@ export default function Login() {
                                 <button 
                                     type="button" 
                                     onClick={() => { setIsLoginView(true); setEmail(""); setPassword(""); setFullName(""); }}
-                                    className="text-violet-400 hover:text-violet-300 font-medium"
+                                    className="text-cyan-400 hover:text-cyan-300 font-medium"
                                 >
                                     Fazer Login
                                 </button>

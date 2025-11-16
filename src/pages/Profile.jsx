@@ -41,7 +41,7 @@ const tierConfig = {
     label: "Premium",
     color: "text-amber-400",
     bgColor: "bg-amber-500/20",
-    gradient: "from-violet-600 to-fuchsia-600",
+    gradient: "from-cyan-500 to-blue-500", // ALTERADO: from-violet-600 to-fuchsia-600
     icon: Crown,
     description: "Acesso completo incluindo aulas escritas"
   }
@@ -163,7 +163,7 @@ export default function Profile() {
         <Card className="bg-slate-800/50 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <User className="w-5 h-5 text-violet-400" />
+              <User className="w-5 h-5 text-cyan-400" /> {/* ALTERADO: text-violet-400 para text-cyan-400 */}
               Dados Pessoais
             </CardTitle>
             <CardDescription className="text-slate-400">
@@ -220,7 +220,7 @@ export default function Profile() {
             <Button
               onClick={handleSave}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700" // ALTERADO: from-violet-600 to-fuchsia-600
             >
               <Save className="w-4 h-4 mr-2" />
               {loading ? "Salvando..." : "Salvar Alterações"}
@@ -266,7 +266,7 @@ export default function Profile() {
                     Faça upgrade e tenha acesso a mais recursos
                   </p>
                   <Link to={createPageUrl("Pricing")}>
-                    <Button className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700">
+                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"> {/* ALTERADO: from-violet-600 to-fuchsia-600 */}
                       <Crown className="w-4 h-4 mr-2" />
                       Ver Planos
                     </Button>

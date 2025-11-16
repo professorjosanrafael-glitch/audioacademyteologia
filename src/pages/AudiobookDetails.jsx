@@ -173,7 +173,7 @@ export default function AudiobookDetails() {
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         {/* Cover */}
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-600/30 to-fuchsia-600/30 rounded-3xl blur-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-3xl blur-2xl" /> {/* ALTERADO: from-violet-600/30 to-fuchsia-600/30 para from-cyan-500/30 to-blue-500/30 */}
           <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-slate-700 shadow-2xl">
             {audiobook.cover_image ? (
               <img 
@@ -182,7 +182,7 @@ export default function AudiobookDetails() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-violet-600 to-fuchsia-600" />
+              <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-blue-500" />
             )}
           </div>
         </div>
@@ -190,20 +190,16 @@ export default function AudiobookDetails() {
         {/* Info */}
         <div className="md:col-span-2">
           <div className="flex flex-wrap gap-2 mb-4">
-            {/* [SUBSTITUIÇÃO: Renderizar o nome real da Categoria - CORREÇÃO FINAL DE ESTILO] */}
             {categoryData && (
-  <span
-    className="inline-block mb-4 px-3 py-1 rounded-full text-xs font-medium text-white shadow-sm"
-    style={{
-      background: `linear-gradient(90deg, ${categoryData.gradient_from}, ${categoryData.gradient_to})`
-    }}
-  >
-    {categoryData.name}
-  </span>
-)}
-
-            
-            
+              <span
+                className="inline-block mb-4 px-3 py-1 rounded-full text-xs font-medium text-white shadow-sm"
+                style={{
+                  background: `linear-gradient(90deg, ${categoryData.gradient_from}, ${categoryData.gradient_to})`
+                }}
+              >
+                {categoryData.name}
+              </span>
+            )}
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -254,7 +250,7 @@ export default function AudiobookDetails() {
                       // 👇 INÍCIO DA CORREÇÃO DE ESTILO DO BLOCO BLOQUEADO 👇
                       ? "bg-slate-800/40 border-slate-600/60 hover:bg-slate-800/50 hover:border-slate-500 cursor-pointer" 
                       // 👆 FIM DA CORREÇÃO DE ESTILO DO BLOCO BLOQUEADO 👆
-                      : "bg-slate-800/50 border-slate-700 hover:border-violet-500/50 hover:bg-slate-800"
+                      : "bg-slate-800/50 border-slate-700 hover:border-blue-500/50 hover:bg-slate-800" // ALTERADO: hover:border-violet-500/50 para hover:border-blue-500/50
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -262,7 +258,7 @@ export default function AudiobookDetails() {
                     <div className={`flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center ${
                       isLocked 
                         ? "bg-slate-700/50" 
-                        : "bg-gradient-to-br from-violet-600 to-fuchsia-600 group-hover:shadow-lg group-hover:shadow-violet-500/25"
+                        : "bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/25" // ALTERADO: from-violet-600 to-fuchsia-600 e shadow-violet-500/25
                     }`}>
                       {isLocked ? (
                         <Lock className="w-6 h-6 text-slate-500" />
@@ -288,7 +284,7 @@ export default function AudiobookDetails() {
                       </div>
                       <h3 className={`text-lg font-semibold mb-1 ${
                         // 👇 INÍCIO DA CORREÇÃO DE COR DO TÍTULO BLOQUEADO 👇
-                        isLocked ? "text-slate-300" : "text-white group-hover:text-violet-400"} transition-colors`}>
+                        isLocked ? "text-slate-300" : "text-white group-hover:text-cyan-400"} transition-colors`}> {/* ALTERADO: group-hover:text-violet-400 para group-hover:text-cyan-400 */}
                         {/* 👆 FIM DA CORREÇÃO DE COR DO TÍTULO BLOQUEADO 👆 */}
                         {episode.title}
                       </h3>
@@ -339,7 +335,7 @@ export default function AudiobookDetails() {
 
           <Link to={createPageUrl("Pricing")} className="w-full">
             <Button
-              className="w-full bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white"
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white" // ALTERADO: from-fuchsia-500 to-violet-600 para from-cyan-500 to-blue-600
             >
               Ver Planos
             </Button>

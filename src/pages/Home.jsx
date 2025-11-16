@@ -75,13 +75,13 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <div className="relative mb-8"> {/* ALTERAÇÃO 1: Reduzindo mb-16 para mb-8 */}
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-fuchsia-600/20 rounded-3xl blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl blur-3xl" />
         <div className="relative text-center py-16 px-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 mb-6">
             <Sparkles className="w-4 h-4 text-violet-400" />
             <span className="text-sm text-slate-300">Aprenda com os clássicos universitários</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 py-3 bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent"> {/* CORREÇÃO: Adicionando py-1 para dar espaço ao "g" */}
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 py-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"> {/* CORREÇÃO: Adicionando py-1 para dar espaço ao "g" */}
             Domine Livros Complexos <br />de Teologia
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto -mt-1"> {/* AJUSTE MAIS: Adicionando -mt-2 para aproximar do h1 */}
@@ -104,7 +104,7 @@ export default function Home() {
             onClick={() => setSelectedCategory("all")}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedCategory === "all"
-                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/25"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-blue-500/25"
                   : "bg-slate-800/50 text-slate-300 hover:bg-slate-800 border border-slate-700"
               }`}
           >
@@ -118,7 +118,7 @@ export default function Home() {
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedCategory === cat.id
-                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/25"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-blue-500/25"
                   : "bg-slate-800/50 text-slate-300 hover:bg-slate-800 border border-slate-700"
               }`}
             >
@@ -154,9 +154,18 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAudiobooks.map(book => {
             // 📌 PASSO 4 — Substituir referências
-            const cat = categorias.find(c => c.id === book.category);
+            const cat = categorias.find(c => c.id === book.category); // Refatorado para usar o ID
 
-            const gradient = cat ? `from-[${cat.gradient_from}] to-[${cat.gradient_to}]` : 'from-slate-700 to-slate-800'; // Default se não encontrar
+            // CORREÇÃO DEFINITIVA: Separar background em color e image para garantir prioridade
+            const gradientStyle = cat
+  ? {
+      // Background com o gradiente
+      background: `linear-gradient(135deg, ${cat.gradient_from}, ${cat.gradient_to})`,
+      color: 'white', // Garante a cor do texto
+      boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)' // Adiciona uma sombra para visual
+    }
+  : {};
+
 
             return (
               <Link 
@@ -175,15 +184,29 @@ export default function Home() {
                       />
                     ) : (
                       // Substituição da cor/gradiente estático
-                      <div className={`w-full h-full bg-gradient-to-br ${gradient} opacity-80`} />
+                      <div
+  className="w-full h-full opacity-80 rounded-2xl"
+  style={gradientStyle}
+/>
+
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
                     
                     {/* Badges */}
                     <div className="absolute top-4 left-4 flex gap-2">
-                      <Badge className={`bg-gradient-to-r ${gradient} border-0 text-white`}>
-                        {cat ? cat.name : 'Sem Categoria'}
-                      </Badge>
+                      {cat && (
+                        <span
+                          className="inline-flex items-center rounded-full text-xs font-medium border-0" // Classes básicas de rótulo
+                          style={{
+                            ...gradientStyle, // Aplica o gradiente e a cor do texto
+                            padding: '6px 12px', // p-3 py-1
+                            borderRadius: '9999px', // rounded-full
+                          }}
+                        >
+                          {cat.name}
+                        </span>
+                      )}
+                      
                     </div>
                     <div className="absolute top-4 right-4">
                       
@@ -192,7 +215,7 @@ export default function Home() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-violet-400 transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors line-clamp-2"> {/* ALTERADO: hover:text-violet-400 para hover:text-cyan-400 */}
                       {book.title}
                     </h3>
                     <p className="text-sm text-slate-400 mb-3">{book.author}</p>

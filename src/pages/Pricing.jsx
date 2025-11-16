@@ -25,13 +25,12 @@ const plans = [
     icon: Sparkles,
     gradient: "from-slate-600 to-slate-700",
     features: [
-      "Acesso ao primeiro episódio de cada audiobook",
-      "Navegue pela biblioteca completa",
-      "Qualidade de áudio padrão"
+      "Desfrute de todas as aulas e cursos gratuitos",
+      
     ],
     limitations: [
-      "Sem acesso a episódios completos",
-      "Sem aulas escritas"
+      "acesso ilimitado a todos os áudios",
+      "acesso ilimitado a todas as aulas escritas"
     ]
   },
   {
@@ -45,11 +44,8 @@ const plans = [
     // [CHAVE INSERIDA: Price ID do Plano Básico]
     stripePriceId: "price_1SKq9jEaNvDjXAylOklnJVaX", 
     features: [
-      "Acesso completo a todos os episódios em áudio",
-      "Todos os audiobooks desbloqueados",
-      "Qualidade de áudio HD",
-      "Download para ouvir offline",
-      "Sem anúncios"
+      "Acesso ilimitado a todos os áudios",
+      
     ],
     limitations: [
       "Sem acesso às aulas escritas"
@@ -61,7 +57,7 @@ const plans = [
     price: "R$ 49,90",
     period: "por mês",
     icon: Crown,
-    gradient: "from-violet-600 to-fuchsia-600",
+    gradient: "from-cyan-500 to-blue-500", // ALTERADO: from-violet-600 to-fuchsia-600
     popular: true,
     // [CHAVE INSERIDA: Price ID do Plano Premium]
     stripePriceId: "price_1SKqCjEaNvDjXAylmQtnFMZZ", 
@@ -190,10 +186,10 @@ export default function Pricing() {
       {/* Header */}
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 mb-6">
-          <Crown className="w-4 h-4 text-violet-400" />
+          <Crown className="w-4 h-4 text-cyan-400" /> {/* ALTERADO: text-violet-400 para text-cyan-400 */}
           <span className="text-sm text-slate-300">Escolha o melhor plano para você</span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"> {/* ALTERADO: from-violet-400 via-fuchsia-400 to-pink-400 */}
           Planos e Preços
         </h1>
         <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
@@ -213,17 +209,17 @@ export default function Pricing() {
               key={plan.id}
               className={`relative rounded-2xl overflow-hidden border transition-all ${
                 plan.popular
-                  ? "border-violet-500 shadow-2xl shadow-violet-500/25 md:scale-105"
+                  ? "border-blue-500 shadow-2xl shadow-blue-500/25 md:scale-105" // ALTERADO: border-violet-500 e shadow-violet-500/25
                   : "border-slate-700 hover:border-slate-600"
               }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-600 to-fuchsia-600" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500" /> 
               )}
               
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-gradient-to-r from-violet-600 to-fuchsia-600 border-0 text-white px-4 py-1">
+                  <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500 border-0 text-white px-4 py-1"> {/* ALTERADO: from-violet-600 to-fuchsia-600 */}
                     Mais Popular
                   </Badge>
                 </div>
@@ -269,7 +265,7 @@ export default function Pricing() {
                   disabled={isCurrentPlan || loading === plan.id}
                   className={`w-full ${
                     plan.popular
-                      ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700" // ALTERADO: from-violet-600 to-fuchsia-600 e hover
                       : "bg-slate-700 hover:bg-slate-600"
                   } ${isCurrentPlan ? "opacity-50 cursor-not-allowed" : ""}`}
                 >

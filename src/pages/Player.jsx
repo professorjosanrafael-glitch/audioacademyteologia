@@ -309,7 +309,7 @@ export default function Player() {
 
       {/* Player Card */}
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 mb-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-600/10 to-fuchsia-600/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10" /> {/* ALTERADO: from-violet-600/10 to-fuchsia-600/10 para from-cyan-500/10 to-blue-500/10 */}
         
         <div className="relative p-8 md:p-12">
           {/* Episode Info */}
@@ -394,7 +394,7 @@ export default function Player() {
             <Button
               size="icon"
               onClick={togglePlayPause}
-              className="w-16 h-16 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 rounded-full shadow-lg shadow-violet-500/25"
+              className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-full shadow-lg shadow-blue-500/25" /* ALTERADO: from-violet-600 to-fuchsia-600 e shadow-violet-500/25 */
             >
               {isPlaying ? (
                 <Pause className="w-7 h-7 text-white" />
@@ -424,28 +424,7 @@ export default function Player() {
           </div>
 
                  
-          {/* Volume Control */}
-          <div className="flex items-center justify-center gap-3 max-w-xs mx-auto mb-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMute}
-              className="text-slate-300 hover:text-white hover:bg-slate-800/50"
-            >
-              {isMuted || volume === 0 ? (
-                <VolumeX className="w-5 h-5" />
-              ) : (
-                <Volume2 className="w-5 h-5" />
-              )}
-            </Button>
-            <Slider
-              value={[isMuted ? 0 : volume]}
-              max={1}
-              step={0.01}
-              onValueChange={handleVolumeChange}
-              className="flex-1"
-            />
-          </div>
+          
           
           {/* Speed Control */}
 <div className="flex items-center justify-center mt-4">
@@ -477,7 +456,7 @@ export default function Player() {
           // 👆 FIM DA CORREÇÃO DO onClick (Etapa 3) 👆
           className={`py-3 ${
             playbackRate === rate
-              ? "bg-violet-600 text-white"
+              ? "bg-cyan-600 text-white" /* ALTERADO: bg-violet-600 para bg-cyan-600 */
               : "bg-slate-800 text-slate-300 hover:bg-slate-700"
           }`}
         >
@@ -521,7 +500,7 @@ export default function Player() {
             {canAccessLesson ? (
               <div className="p-8">
                 {episode.written_lesson ? (
-                  <div className="prose prose-invert max-w-none [&>*]:text-white [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_h4]:text-white [&_p]:text-white [&_li]:text-white [&_strong]:text-white [&_em]:text-slate-200 [&_code]:text-violet-300 [&_a]:text-violet-400">
+                  <div className="prose prose-invert max-w-none [&>*]:text-white [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_h4]:text-white [&_p]:text-white [&_li]:text-white [&_strong]:text-white [&_em]:text-slate-200 [&_code]:text-cyan-300 [&_a]:text-cyan-400"> {/* ALTERADO: text-violet-300 e text-violet-400 para text-cyan-300 e text-cyan-400 */}
                     <ReactMarkdown>{episode.written_lesson}</ReactMarkdown>
                   </div>
                 ) : (
@@ -545,7 +524,7 @@ export default function Player() {
                     Faça upgrade para ter acesso completo a análises detalhadas e material de estudo.
                   </p>
                   <Link to={createPageUrl("Pricing")}>
-                    <Button className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700">
+                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"> {/* ALTERADO: from-violet-600 to-fuchsia-600 */}
                       <Crown className="w-4 h-4 mr-2" />
                       Fazer Upgrade
                     </Button>
@@ -580,7 +559,7 @@ export default function Player() {
 
           <Button
             onClick={() => navigate(createPageUrl("Pricing"))}
-            className="w-full bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white"
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white" /* ALTERADO: from-fuchsia-500 to-violet-600 */
           >
             Ver Planos
           </Button>
@@ -611,7 +590,7 @@ export default function Player() {
 
           <Button
             onClick={() => navigate(createPageUrl("Pricing"))}
-            className="w-full bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white"
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white" /* ALTERADO: from-fuchsia-500 to-violet-600 */
           >
             Ver Planos Premium
           </Button>
