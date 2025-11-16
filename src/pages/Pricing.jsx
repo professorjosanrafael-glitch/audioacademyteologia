@@ -108,10 +108,10 @@ export default function Pricing() {
   // [ALTERAÇÃO 3: Nova Função para Assinatura usando Stripe/Cloud Functions]
   const handleSubscribe = async (planId) => {
     // 1. Caso Free: Apenas confirma o plano atual
-    if (planId === 'free') {
-      toast.info("Você já tem acesso ao plano Free. Para desbloquear mais, escolha um plano pago!");
-      return;
-    }
+    if (planId === "free" && !user) {
+  navigate(createPageUrl("Login"));
+  return;
+}
 
     // 2. Verifica Autenticação
     if (!user) {
@@ -182,7 +182,8 @@ export default function Pricing() {
     );
   }
 
-  const currentTier = user?.subscription_tier || 'free';
+  const currentTier = user ? user.subscription_tier : null;
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

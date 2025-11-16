@@ -85,7 +85,7 @@ export default function Home() {
             Domine Livros Complexos <br />de Teologia
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto -mt-1"> {/* AJUSTE MAIS: Adicionando -mt-2 para aproximar do h1 */}
-            Aulas em áudio de obras essenciais para universitários, com análises profundas e didáticas
+            Aulas em áudio de obras essenciais para estudantes de teologia, com análises profundas e didáticas
           </p>
 
           {/* Search Bar */}
@@ -186,9 +186,7 @@ export default function Home() {
                       </Badge>
                     </div>
                     <div className="absolute top-4 right-4">
-                      <Badge variant="outline" className="bg-slate-900/80 border-slate-700 text-slate-200">
-                        {difficultyLabels[book.difficulty_level]}
-                      </Badge>
+                      
                     </div>
                   </div>
 

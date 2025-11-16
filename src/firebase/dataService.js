@@ -6,7 +6,8 @@ import {
   doc,
   query,
   where,
-  orderBy
+  orderBy,
+  setDoc // 👈 ADICIONADO: Import para criar/atualizar documentos
 } from "firebase/firestore";
 
 
@@ -61,7 +62,6 @@ export async function listAudiobooks() {
 }
 
 
-
 // ===============================
 // 3️⃣ BUSCAR AUDIOBOOK POR ID
 // ===============================
@@ -73,7 +73,6 @@ export async function getAudiobookById(id) {
 
   return { id: snap.id, ...snap.data() };
 }
-
 
 
 // ===============================
@@ -94,4 +93,27 @@ export async function listEpisodesByAudiobook(audiobookId) {
     id: doc.id,
     ...doc.data()
   }));
+}
+
+
+// ===============================
+// 5️⃣ CRIAR DOCUMENTO DO USUÁRIO SE NÃO EXISTIR (NOVO MÉTODO)
+// ===============================
+// Criar usuário automaticamente
+export async function ensureUserDocument(authUser) {
+  if (!authUser) return;
+
+  const ref = doc(db, "usuarios", authUser.uid);
+  const snap = await getDoc(ref);
+
+  // Se já existir, não faz nada
+  if (snap.exists()) return;
+
+  // Criar com dados iniciais
+  await setDoc(ref, {
+    full_name: authUser.displayName || "",
+    email: authUser.email,
+    subscription_tier: "free",
+    created_at: new Date()
+  });
 }

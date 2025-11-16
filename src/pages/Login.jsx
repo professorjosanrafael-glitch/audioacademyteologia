@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // 👈 CORREÇÃO: Link ADICIONADO AQUI
 import { createPageUrl } from "@/utils";
 import { Mail, Lock, User, LogIn, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +13,27 @@ import {
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword 
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore"; // 👈 ADICIONADO: getDoc
 import { auth } from "@/firebase/firebaseConfig";
 import { db } from "@/firebase/firebaseConfig";
+
+
+// --- Criar documento do usuário automaticamente (PASSO 1) ---
+async function ensureUserDocument(user) {
+  if (!user) return;
+
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) return; // já existe, não faz nada
+
+  await setDoc(ref, {
+    full_name: user.displayName || "",
+    email: user.email,
+    subscription_tier: "free", // novo usuário sempre entra como FREE
+    created_at: new Date().toISOString(),
+  });
+}
 
 
 export default function Login() {
@@ -38,10 +56,16 @@ export default function Login() {
         setLoading(true);
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            // 👇 INÍCIO DA CORREÇÃO DE LOGIN (PASSO 3) 👇
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            // Garantir criação automática no Firestore
+            await ensureUserDocument(result.user);
+
             toast.success("Login realizado com sucesso!");
             // Redireciona para a Home
             navigate(createPageUrl("Home")); 
+            // 👆 FIM DA CORREÇÃO DE LOGIN (PASSO 3) 👆
+
         } catch (error) {
             console.error("Erro no Login:", error);
             
@@ -77,15 +101,16 @@ export default function Login() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const uid = userCredential.user.uid;
 
-            // 2. CRIA O DOCUMENTO DE PERFIL INICIAL NO FIRESTORE
-            const profileRef = doc(db, 'artifacts', appId, 'users', uid, 'profiles', uid);
-            
-            await setDoc(profileRef, {
-                full_name: fullName,
-                email: email,
-                subscription_tier: 'free', // Padrão inicial para novos usuários
-                created_at: new Date().toISOString(),
-            }, { merge: true });
+            // 👇 INÍCIO DA CORREÇÃO DE CADASTRO (PASSO 2) 👇
+            // 2. Criar documento no Firestore na coleção correta (usuarios)
+            const ref = doc(db, "usuarios", uid);
+            await setDoc(ref, {
+              full_name: fullName,
+              email: email,
+              subscription_tier: "free",
+              created_at: new Date().toISOString(),
+            });
+            // 👆 FIM DA CORREÇÃO DE CADASTRO (PASSO 2) 👆
 
             toast.success("Conta criada com sucesso! Redirecionando...");
             // Redireciona para a Home
